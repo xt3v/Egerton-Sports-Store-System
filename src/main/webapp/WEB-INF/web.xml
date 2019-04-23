@@ -3,8 +3,5 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>Egerton Sports Store Management System</display-name>
-  <welcome-file-list>
-    <welcome-file>login.html</welcome-file>
-  </welcome-file-list>
+  <display-name>Archetype Created Web Application</display-name>
 </web-app>
