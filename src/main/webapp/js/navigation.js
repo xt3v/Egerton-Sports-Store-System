@@ -1,3 +1,6 @@
+addScript("js/templates/addchildren.js")
+
+
 function addNewItem(){
    
 }
@@ -5,6 +8,12 @@ function addNewItem(){
 function registerStudent(){
     var mainWindow = document.getElementById("main-window") 
     var div = document.createElement("div")
-    div.innerHTML = registerStudentTemplate;
-          mainWindow.appendChild(div)   
+    mainWindow.innerHTML = registerStudentTemplate
+}
+
+
+function addScript(path){
+    var imported = document.createElement('script');
+    imported.src = path;
+    document.head.appendChild(imported);
 }
