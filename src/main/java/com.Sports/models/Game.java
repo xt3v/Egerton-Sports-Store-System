@@ -4,19 +4,12 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Game {
-   private int sportId;
-   private String field;
-   private LocalDate date;
-   private LocalTime time;
-   private int fieldId;
-
-    public Game(int sportId, String field, LocalDate date, LocalTime time, int fieldId) {
-        this.sportId = sportId;
-        this.field = field;
-        this.date = date;
-        this.time = time;
-        this.fieldId = fieldId;
-    }
+    private int sportId;
+    private String field;
+    private LocalDate date;
+    private LocalTime time;
+    private int fieldId;
+    private int gameId;
 
     public int getSportId() {
         return sportId;
@@ -58,12 +51,21 @@ public class Game {
         this.fieldId = fieldId;
     }
 
-    public boolean setTime(){
-        return true;
+    public int getGameId() {
+        return gameId;
     }
 
-    public boolean setDate(){
-        return true;
+    public void setGameId(int gameId) {
+        this.gameId = gameId;
     }
 
+    public Game(int sportId, String field, LocalDate date, LocalTime time, int fieldId, int gameId) {
+        this.sportId = sportId;
+        this.field = field;
+        this.date = date;
+        this.time = time;
+        this.fieldId = fieldId;
+        this.gameId = gameId;
+
+    }
 }
