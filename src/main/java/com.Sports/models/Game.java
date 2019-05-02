@@ -1,20 +1,17 @@
 package com.Sports.models;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 public class Game {
    private int sportId;
    private String field;
-   private LocalDate date;
-   private LocalTime time;
+   private LocalDateTime dateTime;
    private int fieldId;
 
-    public Game(int sportId, String field, LocalDate date, LocalTime time, int fieldId) {
+    public Game(int sportId, String field, LocalDateTime dateTime, int fieldId) {
         this.sportId = sportId;
         this.field = field;
-        this.date = date;
-        this.time = time;
+        this.dateTime = dateTime;
         this.fieldId = fieldId;
     }
 
@@ -34,20 +31,12 @@ public class Game {
         this.field = field;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public LocalTime getTime() {
-        return time;
-    }
-
-    public void setTime(LocalTime time) {
-        this.time = time;
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     public int getFieldId() {
