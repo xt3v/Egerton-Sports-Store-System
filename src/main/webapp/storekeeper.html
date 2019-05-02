@@ -54,31 +54,55 @@
 
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="storekeeper.html">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span>
+          <li class="nav-item active">
+            <a class="nav-link" href="storekeeper.html">
+              <i class="fas fa-fw fa-tachometer-alt"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span>Items</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <a class="dropdown-item" onclick="addNewItem()">Add New Item</a>
+            <a class="dropdown-item" onclick="">View Stock</a>
+            <a class="dropdown-item" onclick="">Stock Item</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span>Students</span>
         </a>
+        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+          <a class="dropdown-item" onclick="">Register</a>
+          <a class="dropdown-item" onclick="">Clear</a>
+        </div>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span>Items</span>
+          <span>Lost Items</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-          <a class="dropdown-item" onclick="addNewItem()">Add New Item</a>
+          <a class="dropdown-item" onclick="">Report</a>
+          <a class="dropdown-item" onclick="">Recover</a>
         </div>
       </li>
-       <li class="nav-item">
-        <a class="nav-link" onclick="registerStudent()">
-          <span>Register Student</span></a>
+      <li class="nav-item">
+        <a class="nav-link" onclick="">
+          <span>Issue Item</span></a>
       </li>
-    </ul>
+      <li class="nav-item">
+        <a class="nav-link" onclick="">
+          <span>return Item</span></a>
+      </li>
+ </ul>
      
     <div id="content-wrapper" style="background-color:#e9ecef !important;">
        
         <!-- center working window -->
       <div class="container d-flex justify-content-center" id="main-window">
-          
+         
       </div>
       <!-- /.container-fluid -->
 

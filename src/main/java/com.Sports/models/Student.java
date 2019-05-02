@@ -1,13 +1,15 @@
 package com.Sports.models;
 
+import java.util.List;
+
 public class Student {
     private String regNo;
     private String name;
     private String residence;
     private int phoneNo;
     //TODO  add borrowed item list
-    //private List<BorrowedItem> borrowedItems;
-    //private List<BorrowedItem> lostItems;
+     private List<BorrowedItem> borrowedItems;
+     private List<BorrowedItem> lostItems;
     private boolean isCaptain;
 
     public Student(String regNo, String name, String residence,int phoneNo, boolean isCaptain) {
