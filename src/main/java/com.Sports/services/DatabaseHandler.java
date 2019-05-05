@@ -69,4 +69,7 @@ public class DatabaseHandler {
         return rs;
     }
 
+    public Connection getConn() {
+        return conn;
+    }
 }

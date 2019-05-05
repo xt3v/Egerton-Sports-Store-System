@@ -1,16 +1,17 @@
 package com.Sports.repositories;
 
 import com.Sports.models.Item;
-import com.Sports.services.DatabaseHandler;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class ItemRepository implements Repository<Integer, Item> {
-    private DatabaseHandler DBHandler;
+
 
     @Override
-    public Item getById(Integer id) {
+    public Optional<Item> getById(Integer id) {
         return null;
     }
 
@@ -20,12 +21,12 @@ public class ItemRepository implements Repository<Integer, Item> {
     }
 
     @Override
-    public ArrayList<Item> queryList(String sql) {
+    public ArrayList<Item> queryList(PreparedStatement stmt) {
         return null;
     }
 
     @Override
-    public ResultSet querySet(String sql) {
+    public ResultSet querySet(PreparedStatement stmt) {
         return null;
     }
 
@@ -38,9 +39,6 @@ public class ItemRepository implements Repository<Integer, Item> {
     public boolean save(Item entry) {
         return false;
     }
-    @Override
-    public void setDBHandler(DatabaseHandler handler) {
-        this.DBHandler = handler;
-    }
+
 
 }

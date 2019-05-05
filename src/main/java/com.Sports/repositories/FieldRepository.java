@@ -1,16 +1,18 @@
 package com.Sports.repositories;
 
 import com.Sports.models.Field;
-import com.Sports.services.DatabaseHandler;
+import javafx.scene.Parent;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class FieldRepository implements Repository<Integer, Field> {
-    private DatabaseHandler DBHandler;
+
 
     @Override
-    public Field getById(Integer id) {
+    public Optional<Field> getById(Integer id) {
         return null;
     }
 
@@ -20,12 +22,12 @@ public class FieldRepository implements Repository<Integer, Field> {
     }
 
     @Override
-    public ArrayList<Field> queryList(String sql) {
+    public ArrayList<Field> queryList(PreparedStatement stmt) {
         return null;
     }
 
     @Override
-    public ResultSet querySet(String sql) {
+    public ResultSet querySet(PreparedStatement stmt) {
         return null;
     }
 
@@ -39,8 +41,4 @@ public class FieldRepository implements Repository<Integer, Field> {
         return false;
     }
 
-    @Override
-    public void setDBHandler(DatabaseHandler handler) {
-        this.DBHandler = handler;
-    }
 }
