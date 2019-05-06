@@ -1,17 +1,18 @@
 package com.Sports.models;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class BorrowedItem {
-
+    private int borrowedItemId;
     private int itemId;
-    private LocalDate date;
+    private LocalDate borrowedDate;
 
-    public BorrowedItem(int itemId, LocalDate date) {
+    public BorrowedItem(int itemId, LocalDate date,int borrowedItemId) {
         this.itemId = itemId;
-        this.date = date;
+        this.borrowedDate = date;
+        this.borrowedItemId = borrowedItemId;
     }
-
 
     public int getItemId() {
         return itemId;
@@ -21,11 +22,19 @@ public class BorrowedItem {
         this.itemId = itemId;
     }
 
+    public int getBorrowedItemId() {
+        return borrowedItemId;
+    }
+
+    public void setBorrowedItemId(int borrowedItemId) {
+        this.borrowedItemId = borrowedItemId;
+    }
+
     public LocalDate getDate() {
-        return date;
+        return borrowedDate;
     }
 
     public void setDate(LocalDate date) {
-        this.date = date;
+        this.borrowedDate = date;
     }
 }

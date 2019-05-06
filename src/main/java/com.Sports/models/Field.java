@@ -1,22 +1,22 @@
 package com.Sports.models;
 
 public class Field {
-    private String fieldname;
+    private String fieldName;
     private int fieldId;
-    private int SportId;
+    private int sportId;
 
     public Field(String fieldname, int fieldId, int sportId) {
-        this.fieldname = fieldname;
+        this.fieldName = fieldname;
         this.fieldId = fieldId;
-        SportId = sportId;
+        this.sportId = sportId;
     }
 
-    public String getFieldname() {
-        return fieldname;
+    public String getFieldName() {
+        return fieldName;
     }
 
-    public void setFieldname(String fieldname) {
-        this.fieldname = fieldname;
+    public void setFieldName(String fieldname) {
+        this.fieldName = fieldname;
     }
 
     public int getFieldId() {
@@ -28,11 +28,11 @@ public class Field {
     }
 
     public Integer getSportId() {
-        return SportId;
+        return sportId;
     }
 
     public void setSportId(int sportId) {
-        SportId = sportId;
+        sportId = sportId;
     }
 
     }
