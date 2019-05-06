@@ -1,5 +1,5 @@
 addScript("js/templates/storekeeper/addnewitem.js")
-
+let rate = ""
 function addNewItem(){
    addToMain(addNewItemTemplate)
 }
