@@ -1,8 +1,15 @@
 addScript("js/templates/storekeeper/addnewitem.js")
-let rate = ""
+addScript("js/templates/storekeeper/registerstudent.js")
+
 function addNewItem(){
    addToMain(addNewItemTemplate)
 }
+
+
+function registerStudent(){
+	addToMain(registerStudentTemplate)
+}
+
 
 
 function addScript(path){
