@@ -1,23 +1,26 @@
 package com.Sports.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Student {
     private String regNo;
     private String name;
     private String residence;
-    private int phoneNo;
+    private String phoneNo;
     //TODO  add borrowed item list
      private List<BorrowedItem> borrowedItems;
      private List<BorrowedItem> lostItems;
     private boolean isCaptain;
 
-    public Student(String regNo, String name, String residence,int phoneNo, boolean isCaptain) {
+    public Student(String regNo, String name, String residence,String phoneNo, boolean isCaptain) {
         this.regNo = regNo;
         this.name = name;
         this.residence = residence;
         this.phoneNo = phoneNo;
         this.isCaptain = isCaptain;
+        this.lostItems = new ArrayList<>();
+        this.borrowedItems = new ArrayList<>();
     }
 
     public String getRegNo() {
@@ -44,11 +47,11 @@ public class Student {
         this.residence = residence;
     }
 
-    public int getPhoneNo() {
+    public String getPhoneNo() {
         return phoneNo;
     }
 
-    public void setPhoneNo(int phoneNo) {
+    public void setPhoneNo(String phoneNo) {
         this.phoneNo = phoneNo;
     }
 

@@ -1,15 +1,22 @@
 package com.Sports.models;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 
+import java.time.LocalDateTime;
 public class Game {
     private int sportId;
-    private String field;
-    private LocalDate date;
-    private LocalTime time;
+    private int teamId;
+    private LocalDateTime time;
     private int fieldId;
     private int gameId;
+
+    public Game(int sportId, int teamId,LocalDateTime time, int fieldId, int gameId) {
+        this.sportId = sportId;
+        this.teamId = teamId;
+        this.time = time;
+        this.fieldId = fieldId;
+        this.gameId = gameId;
+
+    }
 
     public int getSportId() {
         return sportId;
@@ -19,27 +26,19 @@ public class Game {
         this.sportId = sportId;
     }
 
-    public String getField() {
-        return field;
+    public int getTeamId() {
+        return teamId;
     }
 
-    public void setField(String field) {
-        this.field = field;
+    public void setTeamId(int teamId) {
+        this.teamId = teamId;
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public LocalTime getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
 
-    public void setTime(LocalTime time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 
@@ -59,13 +58,5 @@ public class Game {
         this.gameId = gameId;
     }
 
-    public Game(int sportId, String field, LocalDate date, LocalTime time, int fieldId, int gameId) {
-        this.sportId = sportId;
-        this.field = field;
-        this.date = date;
-        this.time = time;
-        this.fieldId = fieldId;
-        this.gameId = gameId;
 
-    }
 }
