@@ -1,5 +1,6 @@
 addScript("js/templates/storekeeper/addnewitem.js")
 addScript("js/templates/storekeeper/registerstudent.js")
+addScript("js/templates/storekeeper/clearstudent.js")
 
 function addNewItem(){
    addToMain(addNewItemTemplate)
@@ -8,6 +9,9 @@ function addNewItem(){
 
 function registerStudent(){
 	addToMain(registerStudentTemplate)
+}
+function clearStudent(){
+	addToMain(clearStudentTemplate)
 }
 
 
