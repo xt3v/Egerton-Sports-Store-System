@@ -12,7 +12,6 @@ import java.io.IOException;
 public class Login extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         resp.sendRedirect("storekeeper.html");
     }
 }
