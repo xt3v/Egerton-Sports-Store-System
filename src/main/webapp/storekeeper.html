@@ -20,7 +20,6 @@
   <!-- Custom styles for this template-->
   <link href="css/sb-admin.css" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/main.css">
 
 </head>
 
@@ -85,7 +84,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           <a class="dropdown-item" onclick="">Report</a>
-          <a class="dropdown-item" onclick="">Recover</a>
+          <a class="dropdown-item" onclick="recoverLostItems()">Recover</a>
         </div>
       </li>
       <li class="nav-item">
@@ -93,7 +92,7 @@
           <span>Issue Item</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" onclick="">
+        <a class="nav-link" onclick="returnItems()">
           <span>return Item</span></a>
       </li>
  </ul>
@@ -101,15 +100,11 @@
     <div id="content-wrapper" style="background-color:#e9ecef !important;">
        
         <!-- center working window -->
-      <div class="container d-flex justify-content-center" id="main-window"> 
-        <!-- register student -->
-       
-
-        
-
-        
+      <div class="container d-flex justify-content-center" id="main-window">        
+           
+       </div>
       <!-- /.container-fluid -->
-
+    
       <!-- Sticky Footer -->
       <footer class="sticky-footer">
         <div class="container my-auto">
@@ -167,8 +162,6 @@
 
   <script src="js/navigation.js"></script>
 
-  <script src="js/main.js"></script>
-   
 </body>
 
 </html>
