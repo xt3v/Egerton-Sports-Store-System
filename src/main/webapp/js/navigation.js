@@ -7,7 +7,10 @@ addScript("js/templates/storekeeper/recoverlostitems.js")
 function addNewItem(){
    addToMain(addNewItemTemplate)
 }
-
+function recoverLostItems(){
+    addToMain(recoverLostItemsTemplate)
+    setupRecoverLostItemsTemplate()
+}
 
 function registerStudent(){
 	addToMain(registerStudentTemplate)
