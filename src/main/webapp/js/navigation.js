@@ -1,4 +1,6 @@
 addScript("js/templates/storekeeper/addnewitem.js")
+addScript("js/templates/storekeeper/registerstudent.js")
+addScript("js/templates/storekeeper/clearstudent.js")
 addScript("js/templates/storekeeper/returnitems.js")
 addScript("js/templates/storekeeper/recoverlostitems.js")
 
