@@ -4,6 +4,14 @@ addScript("js/templates/storekeeper/clearstudent.js")
 addScript("js/templates/storekeeper/returnitems.js")
 addScript("js/templates/storekeeper/recoverlostitems.js")
 
+function registerStudent(){
+	addToMain(registerStudentTemplate)
+}
+
+function clearStudent(){
+	addToMain(clearStudentTemplate)
+}
+
 
 function recoverLostItems(){
     addToMain(recoverLostItemsTemplate)
