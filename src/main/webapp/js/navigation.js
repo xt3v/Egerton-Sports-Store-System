@@ -1,12 +1,18 @@
 addScript("js/templates/storekeeper/addnewitem.js")
 addScript("js/templates/storekeeper/returnitems.js")
 addScript("js/templates/storekeeper/recoverlostitems.js")
-
+addScript("js/templates/storekeeper/issueitem.js")
+addScript("js/templates/storekeeper/report.js")
 
 function recoverLostItems(){
     addToMain(recoverLostItemsTemplate)
     setupRecoverLostItemsTemplate()
 }
+
+function issueitem(){
+    addToMain(issueItemTemplate)
+}
+
 
 function addNewItem(){
    addToMain(addNewItemTemplate)
