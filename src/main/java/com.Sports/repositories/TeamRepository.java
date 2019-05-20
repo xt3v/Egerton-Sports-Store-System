@@ -1,6 +1,5 @@
 package com.Sports.repositories;
 
-import com.Sports.models.Student;
 import com.Sports.models.Team;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -132,4 +131,20 @@ public class TeamRepository implements Repository<Integer, Team> {
     }
 
 
+    public Optional<Team> getByName(String name) {
+        Team team = null;
+        try{
+            String sql = "SELECT * FROM teams WHERE name = ?";
+            PreparedStatement statement = db.getConn().prepareStatement(sql);
+            statement.setString(1,name);
+            ResultSet rs = statement.executeQuery();
+            if(rs.next()){
+                team = new Team(rs.getString("name"),rs.getString("gender"),rs.getString("captainRegNo"),rs.getString("coachId"),rs.getInt("teamId"),rs.getInt("sportId"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage() +" get sport by name");
+        }
+        Optional<Team> optionalTeam = Optional.ofNullable(team);
+        return optionalTeam;
+    }
 }

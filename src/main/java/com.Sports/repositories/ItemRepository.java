@@ -62,9 +62,20 @@ public class ItemRepository implements Repository<Integer, Item> {
         } catch (SQLException e) {
             System.out.println(e.getMessage()+" item query list");
         }
-        return null;
+        return new ArrayList<>();
     }
 
+    public ArrayList<Item> getBySportId(int sportId){
+        try {
+            String sql = "SELECT * FROM items WHERE sportId = ?";
+            PreparedStatement stmt = db.getConn().prepareStatement(sql);
+            stmt.setInt(1,sportId);
+            return createList(stmt.executeQuery());
+        }catch (SQLException e) {
+            System.out.println(e.getMessage() + " getting items by sport id");
+        }
+        return new ArrayList<>();
+    }
     @Override
     public ResultSet querySet(PreparedStatement statement) {
 
@@ -130,5 +141,21 @@ public class ItemRepository implements Repository<Integer, Item> {
         return false;
     }
 
+     public Optional<Item> getByNameInSport(String itemName,int sportId){
+         Item item = null;
+         try{
+             String sql = "SELECT * FROM items WHERE name = ? AND sportId = ?";
+             PreparedStatement statement = db.getConn().prepareStatement(sql);
+             statement.setString(1,itemName);
+             statement.setInt(2,sportId);
 
+             ResultSet rs = statement.executeQuery();
+             if(rs.next()){
+                 item = new Item(rs.getInt("sportId"),rs.getInt("quantity"),rs.getInt("itemId"),rs.getString("name"));
+             }
+         } catch (SQLException e) {
+             System.out.println(e.getMessage()+" get item by name");
+         }
+         return Optional.ofNullable(item);
+     }
 }

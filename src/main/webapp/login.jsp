@@ -25,6 +25,14 @@
     <div class="card card-login mx-auto mt-5">
       <div class="card-header">Login</div>
       <div class="card-body">
+         <%
+             String errorHtml = "";
+             Object error = request.getAttribute("error");
+             if(error != null){
+                     errorHtml = "<h5 class=\"text-danger text-center\">Wrong username or password</h5>";
+              }
+         %>
+         <%=errorHtml%>
         <form action="/login" method="post">
           <div class="form-group">
             <div class="form-label-group">
@@ -38,16 +46,7 @@
               <label for="inputPassword">Password</label>
             </div>
           </div>
-          
-          <div class="form-group">
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" value="remember-me">
-                Remember Password
-              </label>
-            </div>
-          </div>
-          <a class="btn btn-primary btn-block" href="storekeeper.html">Login</a>
+            <input type="submit" class="btn btn-primary btn btn-block" value="Login">
         </form>
         <div class="text-center">
           <a class="d-block small" href="forgot-password.html">Forgot Password?</a>

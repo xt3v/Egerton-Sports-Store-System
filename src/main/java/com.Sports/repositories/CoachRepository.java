@@ -2,6 +2,7 @@ package com.Sports.repositories;
 
 import com.Sports.models.Coach;
 import com.Sports.services.DatabaseHandler;
+import com.Sports.services.DatabaseService;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 public class CoachRepository implements Repository<String, Coach> {
+
 
     @Override
     public Optional<Coach> getById(String id) {
@@ -23,6 +25,7 @@ public class CoachRepository implements Repository<String, Coach> {
 
             if(rs.next()){
                 coach = new Coach(rs.getString("name"),rs.getString("employeeId"));
+                coach.setBorrowedItemList(new BorrowedItemRepository().getByBorrowerId(coach.getEmployeeId()));
             }
 
         } catch (SQLException e) {

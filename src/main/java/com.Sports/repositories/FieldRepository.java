@@ -123,4 +123,22 @@ public class FieldRepository implements Repository<Integer, Field> {
     }
 
 
+    public Optional<Field> getByName(String fieldName) {
+        Field field = null;
+      try{
+          String sql = "SELECT * FROM fields WHERE fieldName = ?";
+          PreparedStatement statement = db.getConn().prepareStatement(sql);
+          statement.setString(1,fieldName);
+
+          ResultSet rs = statement.executeQuery();
+          if(rs.next()){
+              field = new Field(rs.getString("fieldName"),rs.getInt("fieldId"),rs.getInt("sportId"));
+
+          }
+      } catch (SQLException e) {
+          System.out.println(e.getMessage()+" get field by name");
+      }
+      return Optional.ofNullable(field);
+    }
+
 }

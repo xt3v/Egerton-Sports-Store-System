@@ -1,6 +1,8 @@
 package com.Sports.repositories;
 
 import com.Sports.models.Student;
+import com.Sports.services.DatabaseService;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,14 +22,16 @@ public class StudentRepository implements Repository<String, Student> {
 
             if(rs.next()){
               student = new Student(rs.getString("regNo"),rs.getString("name"),rs.getString("residence"),
-                      rs.getString("phoneNo"),rs.getBoolean("isCaptain"));
+                      rs.getString("phoneNo"));
+
+              student.setBorrowedItems(new BorrowedItemRepository().getByBorrowerId(student.getRegNo()));
             }
 
         } catch (SQLException e) {
             System.out.println(e.getMessage() + "student repo");
         }
-        Optional<Student> optionalStudent = Optional.ofNullable(student);
-        return optionalStudent;
+        System.out.println(student +" student by id");
+        return Optional.ofNullable(student);
     }
 
     @Override
@@ -41,7 +45,7 @@ public class StudentRepository implements Repository<String, Student> {
         try{
             while (rs.next()){
                 Student student = new Student(rs.getString("regNo"),rs.getString("name"),rs.getString("residence"),
-                        rs.getString("phoneNo"),rs.getBoolean("isCaptain"));
+                        rs.getString("phoneNo"));
                 list.add(student);
             }
         } catch (SQLException e) {
@@ -95,13 +99,12 @@ public class StudentRepository implements Repository<String, Student> {
 
         if(optionalStudent.isPresent()){
             try{
-                String sql = "UPDATE students SET name = ?,residence = ?, phoneNo = ? , isCaptain = ? WHERE regNo = ?";
+                String sql = "UPDATE students SET name = ?,residence = ?, phoneNo = ?  WHERE regNo = ?";
                 PreparedStatement stmt = db.getConn().prepareStatement(sql);
                 stmt.setString(1,student.getName());
                 stmt.setString(2,student.getResidence());
                 stmt.setString(3,student.getPhoneNo());
-                stmt.setBoolean(4,student.isCaptain());
-                stmt.setString(5,student.getRegNo());
+                stmt.setString(4,student.getRegNo());
 
                 int rs = stmt.executeUpdate();
                 if(rs == 1)return true;
@@ -113,12 +116,12 @@ public class StudentRepository implements Repository<String, Student> {
         }
 
         try{
-            String sql = "INSERT INTO students(name,residence,phoneNo,isCaptain) VALUES(?,?,?,?)";
+            String sql = "INSERT INTO students(name,residence,phoneNo,regNo) VALUES(?,?,?,?)";
             PreparedStatement stmt = db.getConn().prepareStatement(sql);
             stmt.setString(1,student.getName());
             stmt.setString(2,student.getResidence());
             stmt.setString(3,student.getPhoneNo());
-            stmt.setBoolean(4,student.isCaptain());
+            stmt.setString(4,student.getRegNo());
 
             int rs = stmt.executeUpdate();
 

@@ -3,25 +3,21 @@ let addNewItemTemplate = `<div id="add-item-wrapper" class="card">
      <h4 class="text-center">Add New Item</h4>
 </div>
 <div class="card-body">
-   <form>
+   <form id="registerFieldForm" data-parsley-validate="" >
        <div class="form-group">
-          <label for="sport">Sport</label>
-          <select name="sport" id="sport" class="form-control">
-              <option value="">Football</option>  
-              <option value="">Rugby</option>  
+          <label for="sportSelect">Sport</label>
+          <select name="sportSelect" id="sportSelect" class="form-control">
+              
          </select>
        </div>
        <div class="form-group">
              <label for="name">Name</label>
-             <input class="form-control" type="text" name="name" id="name">
+             <input class="form-control" type="text" name="name" id="name" required="true">
        </div>
        <div>
           <button class="btn btn-success">
              Save
           </button>
-          <button class="btn btn-danger">
-              Cancel
-           </button>
        </div>
    </form>
 </div>
@@ -35,3 +31,74 @@ let addNewItemTemplate = `<div id="add-item-wrapper" class="card">
   height: 400px;
 }
 </style>`
+
+function setupAddNewItemTemplate(){
+   //get sports to populate the sports select
+   axios.get("/sports")
+   .then((res)=>{
+       let sports = res.data
+
+       //populate the select
+       let select = document.querySelector("#sportSelect")
+       let html = ""
+       sports.forEach(sport => {
+           html += `<option value="${sport.sportId}">${sport.name}</option>`
+       });
+
+       select.innerHTML = html
+    })
+
+    //
+    $(document).ready(function() {
+      $("#registerFieldForm").on('submit', function(e){
+
+          e.preventDefault();
+          var form = $(this);
+
+          form.parsley().validate();
+
+          if (form.parsley().isValid()){
+              //show alert
+              Swal.fire({
+                  text: `Add Item ${$("#name").val()}`,
+                  type: 'info',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Yes'
+                }).then((result) => {
+                  if (result.value) {
+                      //send post request
+                      axios.post(`/items`,{
+                          name : $("#name").val(),
+                          sportId : $("#sportSelect").val(),
+                          itemId : -1,
+                          quantity : 0
+                      })
+                      .then((rs)=>{
+                          Swal.fire({
+                              position: 'center',
+                              type: 'success',
+                              title: 'Item Added',
+                              showConfirmButton: false,
+                              timer: 1500
+                            })
+                           $("#name").val("")
+                          
+                      })
+                      .catch((err)=>{
+                          let message = err.response.data.message
+                          Swal.fire({
+                              position: 'center',
+                              type: 'error',
+                              title: message,
+                              showConfirmButton: false,
+                              timer: 1500
+                            })
+                      })
+                  }
+                })     
+          }
+      });
+  });
+} 

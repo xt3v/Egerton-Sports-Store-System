@@ -1,6 +1,10 @@
 package com.Sports.models;
 
+import com.Sports.services.DatabaseService;
+import org.json.JSONObject;
+
 public class Item {
+    private static DatabaseService db = DatabaseService.getInstance();
     private int sportId;
     private int quantity;
     private int itemId;
@@ -11,6 +15,17 @@ public class Item {
         this.quantity = quantity;
         this.itemId = itemId;
         this.name = name;
+    }
+
+    public Item(JSONObject itemJSON){
+        this.sportId = itemJSON.getInt("sportId");
+        this.quantity = itemJSON.getInt("quantity");
+        this.itemId = itemJSON.getInt("itemId");
+        this.name = itemJSON.getString("name");
+    }
+
+    public static boolean checkIfExists(Item item) {
+       return db.getItemRepository().getByNameInSport(item.getName(),item.getSportId()).isPresent();
     }
 
     public int getSportId() {

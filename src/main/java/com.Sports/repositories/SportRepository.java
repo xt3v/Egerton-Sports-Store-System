@@ -40,7 +40,8 @@ public class SportRepository implements Repository<Integer, Sport> {
         ArrayList<Sport> list = new ArrayList<>();
         try{
             while (rs.next()){
-               Sport sport = new Sport(rs.getString("name"),rs.getInt("sportId"));
+
+                Sport sport = new Sport(rs.getString("name"),rs.getInt("sportId"));
                 list.add(sport);
             }
         } catch (SQLException e) {
@@ -109,7 +110,7 @@ public class SportRepository implements Repository<Integer, Sport> {
         }
 
         try{
-            String sql = "INSERT INTO games(name) VALUES(?)";
+            String sql = "INSERT INTO sports(name) VALUES(?)";
             PreparedStatement stmt = db.getConn().prepareStatement(sql);
             stmt.setString(1,sport.getName());
 
@@ -123,5 +124,21 @@ public class SportRepository implements Repository<Integer, Sport> {
         return false;
     }
 
+    public Optional<Sport> getByName(String name){
+        Sport sport = null;
+        try{
+            String sql = "SELECT * FROM sports WHERE name = ?";
+            PreparedStatement statement = db.getConn().prepareStatement(sql);
+            statement.setString(1,name);
+            ResultSet rs = statement.executeQuery();
+            if(rs.next()){
+                sport = new Sport(rs.getString("name"),rs.getInt("sportId"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage() +" get sport by name");
+        }
+        Optional<Sport> optionalSport = Optional.ofNullable(sport);
+        return optionalSport;
+    }
 
 }

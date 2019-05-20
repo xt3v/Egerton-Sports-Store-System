@@ -15,11 +15,15 @@
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
   <!-- Page level plugin CSS-->
-  <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+  <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin.css" rel="stylesheet">
 
+  <link rel="stylesheet" href="vendor/sweetalert/sweetalert2.min.css">  
+  <link rel="stylesheet" href="vendor/select2/select2.min.css">
+  <link rel="stylesheet" href="vendor/parsley/parsley.css"> 
+  <link rel="stylesheet" href="vendor/autocomplete/autocomplete.min.css">
 
 </head>
 
@@ -88,7 +92,7 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" onclick="">
+        <a class="nav-link" onclick="issueItem()">
           <span>Issue Item</span></a>
       </li>
       <li class="nav-item">
@@ -100,8 +104,7 @@
     <div id="content-wrapper" style="background-color:#e9ecef !important;">
        
         <!-- center working window -->
-      <div class="container d-flex justify-content-center" id="main-window">        
-           
+      <div class="container d-flex justify-content-center" id="main-window">         
        </div>
       <!-- /.container-fluid -->
     
@@ -109,7 +112,7 @@
       <footer class="sticky-footer">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright © Your Website 2019</span>
+            <span>Copyright ©  2019</span>
           </div>
         </div>
       </footer>
@@ -138,7 +141,7 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary" href="login.jsp">Logout</a>
         </div>
       </div>
     </div>
@@ -153,14 +156,28 @@
 
   <!-- Page level plugin JavaScript-->
   <script src="vendor/chart.js/Chart.min.js"></script>
-  <script src="vendor/datatables/jquery.dataTables.js"></script>
-  <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+  <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin.min.js"></script>
-
-
+      <script src="vendor/axios.min.js"></script>
+   <script src="vendor/sweetalert/sweetalert2.min.js"></script>
+  <script src="vendor/parsley/parsley.min.js"></script>
+  <script src="vendor/select2/select2.min.js"></script>
+  <script src="vendor/autocomplete/liquidmetal.js"></script>
+  <script src="vendor/autocomplete/autocomplete.min.js"></script>
+  <script src="js/main.js"></script>
   <script src="js/navigation.js"></script>
+
+  <script>
+      var words = ["omena","food","shoes","chapati","choo"];
+      $(document).ready(function(){   
+        jQuery(document).ready(function() {
+          $("select.flexselect").flexselect();
+        });
+      })  
+  </script>
 
 </body>
 

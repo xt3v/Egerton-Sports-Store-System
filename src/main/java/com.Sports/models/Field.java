@@ -1,14 +1,28 @@
 package com.Sports.models;
 
+import com.Sports.services.DatabaseService;
+import org.json.JSONObject;
+
 public class Field {
+    private static DatabaseService db = DatabaseService.getInstance();
     private String fieldName;
     private int fieldId;
     private int sportId;
 
-    public Field(String fieldname, int fieldId, int sportId) {
-        this.fieldName = fieldname;
+    public Field(String fieldName, int fieldId, int sportId) {
+        this.fieldName = fieldName;
         this.fieldId = fieldId;
         this.sportId = sportId;
+    }
+
+    public Field(JSONObject fieldJSON) {
+        this.fieldName = fieldJSON.getString("fieldName");
+        this.fieldId = fieldJSON.getInt("fieldId");
+        this.sportId = fieldJSON.getInt("sportId");
+    }
+
+    public static boolean checkIfExists(Field field) {
+       return db.getFieldRepository().getByName(field.getFieldName()).isPresent();
     }
 
     public String getFieldName() {

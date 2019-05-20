@@ -1,5 +1,8 @@
 package com.Sports.models;
 
+import com.Sports.services.DatabaseService;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,19 +11,29 @@ public class Student {
     private String name;
     private String residence;
     private String phoneNo;
-    //TODO  add borrowed item list
-     private List<BorrowedItem> borrowedItems;
-     private List<BorrowedItem> lostItems;
-    private boolean isCaptain;
+    private List<BorrowedItem> borrowedItems;
+    //TODO add lost items
+    private List<BorrowedItem> lostItems;
+    private static DatabaseService db = DatabaseService.getInstance();
 
-    public Student(String regNo, String name, String residence,String phoneNo, boolean isCaptain) {
+    public Student(String regNo, String name, String residence,String phoneNo) {
         this.regNo = regNo;
         this.name = name;
         this.residence = residence;
         this.phoneNo = phoneNo;
-        this.isCaptain = isCaptain;
         this.lostItems = new ArrayList<>();
         this.borrowedItems = new ArrayList<>();
+    }
+
+    public Student(JSONObject studentJSON) {
+        this.regNo = studentJSON.getString("regNo");
+        this.name = studentJSON.getString("name");
+        this.residence = studentJSON.getString("residence");
+        this.phoneNo = studentJSON.getString("phoneNo");
+    }
+
+    public static boolean checkIfExists(Student student) {
+        return db.getStudentRepository().getById(student.getRegNo()).isPresent();
     }
 
     public String getRegNo() {
@@ -33,6 +46,14 @@ public class Student {
 
     public String getName() {
         return name;
+    }
+
+    public List<BorrowedItem> getBorrowedItems() {
+        return borrowedItems;
+    }
+
+    public void setBorrowedItems(List<BorrowedItem> borrowedItems) {
+        this.borrowedItems = borrowedItems;
     }
 
     public void setName(String name) {
@@ -55,13 +76,7 @@ public class Student {
         this.phoneNo = phoneNo;
     }
 
-    public boolean isCaptain() {
-        return isCaptain;
-    }
-
-    public void setCaptain(boolean captain) {
-        isCaptain = captain;
-    }
+    //TODO iscaptain function
 
     public boolean issueItem(){
        return true;
@@ -71,4 +86,13 @@ public class Student {
         return true;
     }
 
+    public boolean isCaptain() {
+        boolean res[] = {false};
+        db.getTeamRepository().getAll().forEach(team->{
+            if(team.getCaptainRegNo().equals(this.regNo)){
+                res[0] = true;
+            }
+        });
+        return res[0];
+    }
 }

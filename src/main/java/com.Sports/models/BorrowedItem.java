@@ -7,11 +7,15 @@ public class BorrowedItem {
     private int borrowedItemId;
     private int itemId;
     private LocalDate borrowedDate;
+    private int quantity;
+    private String borrowerId;
 
-    public BorrowedItem(int itemId, LocalDate date,int borrowedItemId) {
+    public BorrowedItem(int itemId, LocalDate date,int borrowedItemId,int quantity,String borrowerId) {
         this.itemId = itemId;
         this.borrowedDate = date;
         this.borrowedItemId = borrowedItemId;
+        this.quantity = quantity;
+        this.borrowerId = borrowerId;
     }
 
     public int getItemId() {
@@ -36,5 +40,29 @@ public class BorrowedItem {
 
     public void setDate(LocalDate date) {
         this.borrowedDate = date;
+    }
+
+    public LocalDate getBorrowedDate() {
+        return borrowedDate;
+    }
+
+    public void setBorrowedDate(LocalDate borrowedDate) {
+        this.borrowedDate = borrowedDate;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getBorrowerId() {
+        return borrowerId;
+    }
+
+    public void setBorrowerId(String borrowerId) {
+        this.borrowerId = borrowerId;
     }
 }

@@ -1,6 +1,10 @@
 package com.Sports.models;
 
+import com.Sports.services.DatabaseService;
+import org.json.JSONObject;
+
 public class Team {
+    private static DatabaseService databaseservice = DatabaseService.getInstance();
     private String name;
     private String gender;
     private String captainRegNo;
@@ -16,6 +20,20 @@ public class Team {
         this.teamId = teamId;
         this.sportId = sportId;
     }
+
+    public Team(JSONObject teamJSON) {
+       this.name = teamJSON.getString("name");
+       this.gender = teamJSON.getString("gender");
+       this.captainRegNo = teamJSON.getString("captainRegNo");
+       this.coachId = teamJSON.getString("coachId");
+       this.sportId = teamJSON.getInt("sportId");
+       this.teamId = teamJSON.getInt("teamId");
+    }
+
+    public static boolean checkIfExists(Team team) {
+        return databaseservice.getTeamRepository().getByName(team.getName()).isPresent();
+    }
+
 
     public String getName() {
         return name;
