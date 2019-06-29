@@ -13,8 +13,14 @@ public class DatabaseService {
     private SportRepository sportRepository;
     private StudentRepository studentRepository;
     private TeamRepository teamRepository;
+    private LostItemRepository lostItemRepository;
+    private SessionRepository sessionRepository;
+    private GameRequestRepository gameRequestRepository;
+    private  RequestItemsRepository requestItemsRepository;
 
     private DatabaseService(){
+        gameRequestRepository = new GameRequestRepository();
+        sessionRepository = new SessionRepository();
        borrowedItemRepository = new BorrowedItemRepository();
        coachRepository = new CoachRepository();
        fieldRepository = new FieldRepository();
@@ -23,6 +29,16 @@ public class DatabaseService {
        sportRepository = new SportRepository();
        studentRepository = new StudentRepository();
        teamRepository = new TeamRepository();
+       lostItemRepository = new LostItemRepository();
+       requestItemsRepository = new RequestItemsRepository();
+    }
+
+    public LostItemRepository getLostItemRepository() {
+        return lostItemRepository;
+    }
+
+    public RequestItemsRepository getRequestItemsRepository() {
+        return requestItemsRepository;
     }
 
     public static DatabaseService getInstance(){
@@ -61,5 +77,13 @@ public class DatabaseService {
 
     public TeamRepository getTeamRepository() {
         return teamRepository;
+    }
+
+    public GameRequestRepository getGameRequestRepository() {
+        return gameRequestRepository;
+    }
+
+    public SessionRepository getSessionRepository() {
+        return sessionRepository;
     }
 }

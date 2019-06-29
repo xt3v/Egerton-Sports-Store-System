@@ -9,10 +9,20 @@ addScript("js/templates/coordinator/registercoach.js")
 addScript("js/templates/coordinator/registerfield.js")
 addScript("js/templates/storekeeper/issueitem.js")
 addScript("js/templates/storekeeper/selectissueitems.js")
+addScript("js/templates/viewstock.js")
+addScript("js/templates/viewstudents.js")
+addScript("js/templates/coordinator/viewteams.js")
+addScript("js/templates/coordinator/viewcoaches.js")
+addScript("js/templates/coordinator/viewsports.js")
+addScript("js/templates/coordinator/viewfields.js")
+addScript("js/templates/coordinator/gamerequests.js")
+addScript('js/templates/storekeeper/requesteditems.js')
+addScript("js/templates/coordinator/viewgames.js")
 
 //storekeeper views
 function clearStudent(){
-	addToMain(clearStudentTemplate)
+    addToMain(clearStudentTemplate)
+    setupClearStudentTemplate()
 }
 
 function recoverLostItems(){
@@ -45,6 +55,15 @@ function registerStudent(){
     setupRegisterStudentTemplate()
 }
 
+function viewItems(){
+    addToMain(viewStockTemplate)
+    setupViewStockTemplate()
+}
+
+function viewStudents(){
+    addToMain(viewStudentsTemplate)
+    setupViewStudentsTemplate()
+}
 //coordinator views
 function registerSport(){
     addToMain(registerSportTemplate)
@@ -66,6 +85,40 @@ function registerField(){
     setupRegisterFieldTemplate()
 }
 
+function viewTeams(){
+    addToMain(viewTeamsTemplate)
+    setupViewTeamsTemplate()
+}
+
+function viewCoaches(){
+    addToMain(viewCoachTemplate)
+    setupViewCoachTemplate()
+}
+
+function viewSports(){
+    addToMain(viewSportsTemplate )
+    setupViewSportsTemplate()
+}
+
+function gameRequests(){
+    addToMain(gameRequestTemplate)
+    setupGameRequestTemplate()   
+}
+
+function viewFields(){
+    addToMain(viewFieldsTemplate)
+    setupViewFieldsTemplate()
+}
+
+function viewgames(){
+    addToMain(viewGameTemplate)
+    setupViewGameTemplate()
+}
+
+function requestedItems(){
+   addToMain(requestedItemsTemplate)
+   setupRequestItemTemplate()
+}
 
 //helper functions
 function addScript(path){

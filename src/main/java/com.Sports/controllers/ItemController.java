@@ -76,4 +76,39 @@ public class ItemController extends HttpServlet {
         out.flush();
         out.close();
     }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        PrintWriter out = null;
+        JSONObject responseJSon = null;
+        try {
+
+            out = resp.getWriter();
+            JSONObject itemJSON = JsonService.getFromRequest(req);
+            System.out.println(itemJSON.toString());
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
+
+            Item item = new Item(itemJSON);
+            System.out.println("hapa");
+            boolean saved = db.getItemRepository().save(item);
+            if (saved) {
+                responseJSon = new JSONObject("{'status': 'success'}");
+            } else {
+                throw new Exception();
+            }
+
+            out.write(responseJSon.toString());
+            out.flush();
+            out.close();
+        }catch (Exception e){
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            responseJSon = new JSONObject("{'message':'Error Saving'}");
+            out.write(responseJSon.toString());
+            out.flush();
+            out.close();
+        }
+
+
+    }
 }

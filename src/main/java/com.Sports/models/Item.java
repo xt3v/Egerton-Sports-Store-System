@@ -3,6 +3,8 @@ package com.Sports.models;
 import com.Sports.services.DatabaseService;
 import org.json.JSONObject;
 
+import java.sql.PreparedStatement;
+
 public class Item {
     private static DatabaseService db = DatabaseService.getInstance();
     private int sportId;
@@ -43,7 +45,6 @@ public class Item {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
     public int getItemId() {
         return itemId;
     }
@@ -58,5 +59,25 @@ public class Item {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("name",this.name);
+        jsonObject.put("itemId",this.itemId);
+        jsonObject.put("quantity",this.quantity);
+        jsonObject.put("sportId",this.sportId);
+        jsonObject.put("lostAmount",this.getLostAmount());
+        jsonObject.put("borrowedAmount",this.getBorrowedAmount());
+        return jsonObject.toString();
+    }
+
+    public int getLostAmount() {
+        return db.getLostItemRepository().getByItemId(this.itemId).size();
+    }
+
+    public int getBorrowedAmount(){
+       return db.getBorrowedItemRepository().getByItemId(this.itemId).size();
     }
 }

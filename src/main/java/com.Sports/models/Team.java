@@ -3,6 +3,8 @@ package com.Sports.models;
 import com.Sports.services.DatabaseService;
 import org.json.JSONObject;
 
+import java.util.Optional;
+
 public class Team {
     private static DatabaseService databaseservice = DatabaseService.getInstance();
     private String name;
@@ -32,6 +34,13 @@ public class Team {
 
     public static boolean checkIfExists(Team team) {
         return databaseservice.getTeamRepository().getByName(team.getName()).isPresent();
+    }
+
+    public static Optional<Team> getByCoachCaptain(String id) {
+       return  databaseservice.getTeamRepository().getAll()
+                .stream()
+                .filter(t-> t.getCoachId().equals(id) || t.getCaptainRegNo().equals(id))
+                .findFirst();
     }
 
 
@@ -85,5 +94,21 @@ public class Team {
 
     public boolean setCaptain(){
         return true;
+    }
+
+
+    @Override
+    public String toString() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("name",this.name);
+        jsonObject.put("gender",this.gender);
+        jsonObject.put("captainRegNo",this.captainRegNo);
+        jsonObject.put("coachId",this.coachId);
+        jsonObject.put("teamId",this.teamId);
+        jsonObject.put("sportId",this.sportId);
+        jsonObject.put("sportName",databaseservice.getSportRepository().getById(this.sportId).get().getName());
+        jsonObject.put("captainName",databaseservice.getStudentRepository().getById(this.captainRegNo).get().getName());
+        jsonObject.put("coachName",databaseservice.getCoachRepository().getById(this.coachId).get().getName());
+        return jsonObject.toString();
     }
 }

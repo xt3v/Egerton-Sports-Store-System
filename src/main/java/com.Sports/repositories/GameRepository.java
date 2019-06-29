@@ -21,7 +21,8 @@ public class GameRepository implements Repository<Integer, Game> {
 
             if(rs.next()){
                LocalDateTime time = rs.getTimestamp("dateTime").toLocalDateTime();
-               game = new Game(rs.getInt("sportId"),rs.getInt("teamId"),time,rs.getInt("fieldId"),rs.getInt("gameId"));
+               game = new Game(rs.getInt("sportId"),rs.getInt("teamId"),time,rs.getInt("fieldId"),rs.getInt("gameId"),rs.getFloat("duration"));
+               game.setPlayed(rs.getBoolean("played"));
             }
 
         } catch (SQLException e) {
@@ -42,7 +43,8 @@ public class GameRepository implements Repository<Integer, Game> {
         try{
             while (rs.next()){
                 LocalDateTime time = rs.getTimestamp("dateTime").toLocalDateTime();
-               Game game = game = new Game(rs.getInt("sportId"),rs.getInt("teamId"),time,rs.getInt("fieldId"),rs.getInt("gameId"));
+               Game game = game = new Game(rs.getInt("sportId"),rs.getInt("teamId"),time,rs.getInt("fieldId"),rs.getInt("gameId"),rs.getFloat("duration"));
+                game.setPlayed(rs.getBoolean("played"));
                 list.add(game);
             }
         } catch (SQLException e) {
@@ -96,13 +98,15 @@ public class GameRepository implements Repository<Integer, Game> {
 
         if(optionalGame.isPresent()){
             try{
-                String sql = "UPDATE games SET fieldId = ? , sportId = ? , teamId = ? , dateTime = ?  WHERE gameId = ?";
+                String sql = "UPDATE games SET fieldId = ? , sportId = ? , teamId = ? , dateTime = ? , duration = ?,played = ? WHERE gameId = ?";
                 PreparedStatement stmt = db.getConn().prepareStatement(sql);
                 stmt.setInt(1,game.getFieldId());
                 stmt.setInt(2,game.getSportId());
                 stmt.setInt(3,game.getTeamId());
                 stmt.setTimestamp(4, Timestamp.valueOf(game.getTime()));
-                stmt.setInt(5,game.getGameId());
+                stmt.setFloat(5,game.getDuration());
+                stmt.setBoolean(6,game.isPlayed());
+                stmt.setInt( 7,game.getGameId());
                 int rs = stmt.executeUpdate();
                 if(rs == 1)return true;
 
@@ -113,12 +117,13 @@ public class GameRepository implements Repository<Integer, Game> {
         }
 
         try{
-            String sql = "INSERT INTO games(dateTime,fieldId,sportId,teamId) VALUES(?,?,?,?)";
+            String sql = "INSERT INTO games(dateTime,fieldId,sportId,teamId,duration) VALUES(?,?,?,?,?)";
             PreparedStatement stmt = db.getConn().prepareStatement(sql);
             stmt.setTimestamp(1, Timestamp.valueOf(game.getTime()));
             stmt.setInt(2,game.getFieldId());
             stmt.setInt(3,game.getSportId());
             stmt.setInt(4,game.getTeamId());
+            stmt.setFloat(5,game.getDuration());
 
             int rs = stmt.executeUpdate();
 
@@ -129,6 +134,5 @@ public class GameRepository implements Repository<Integer, Game> {
         }
         return false;
     }
-
 
 }

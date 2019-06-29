@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<%
+    if(request.getCookies() != null && request.getCookies().length > 3){
+            for(Cookie c  : request.getCookies()){
+                if(c.getName().equals("egersportuserrole")) {
+                    if(c.getValue().equals("storekeeper")){
+                        response.sendRedirect("/storekeeper.jsp");
+                    }else{
+                        response.sendRedirect("/coordinator.jsp");
+                    }
+                }
+            }
+    }
+%>
 <head>
 
   <meta charset="utf-8">
@@ -33,7 +45,7 @@
               }
          %>
          <%=errorHtml%>
-        <form action="/login" method="post">
+        <form action="/adminlogin" method="post">
           <div class="form-group">
             <div class="form-label-group">
               <input type="text" name="inputName" id="inputName" class="form-control" placeholder="User Name" required="required" autofocus="autofocus">

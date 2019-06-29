@@ -1,7 +1,7 @@
 
 
 let issueItemTemplate = `
-<div class="col-md-7" id="issue-item-wrapper">
+<div class="col-md-10" id="issue-item-wrapper">
 <h4 class="text-center">Issue Item</h4>
 <div class="form-group">
    <label for="identification" style="width:40%;">Enter Reg No/Empployee ID</label>
@@ -18,10 +18,8 @@ let issueItemTemplate = `
 <style>
     #issue-item-wrapper{
         background-color: white;
-        height: 300px;
         border-radius: 5%;
         padding : 40px;
-        height : 400px;
     }
 </style>`
 

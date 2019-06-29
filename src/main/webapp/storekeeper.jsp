@@ -1,3 +1,17 @@
+<%
+    boolean found = false;
+    if(request.getCookies() != null && request.getCookies().length > 3){
+            for(Cookie c  : request.getCookies()){
+                if(c.getName().equals("egersportuserrole")) {
+                    if(c.getValue().equals("storekeeper")){
+                        found = true;
+                    }
+                }
+            }
+    }
+
+    if(!found)response.sendRedirect("/adminLogin");
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,8 +45,6 @@
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="storekeeper.html"></a>
-
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
     </button>
@@ -46,7 +58,7 @@
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+          <a class="dropdown-item" href="#" id="logBtn">Logout</a>
         </div>
       </li>
     </ul>
@@ -69,8 +81,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
             <a class="dropdown-item" onclick="addNewItem()">Add New Item</a>
-            <a class="dropdown-item" onclick="">View Stock</a>
-            <a class="dropdown-item" onclick="">Stock Item</a>
+            <a class="dropdown-item" onclick="viewItems()">View Items</a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -80,16 +91,11 @@
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           <a class="dropdown-item" onclick="registerStudent()">Register Student</a>
           <a class="dropdown-item" onclick="clearStudent()">Clear Student</a>
+          <a class="dropdown-item" onclick="viewStudents()">View Students</a>
         </div>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span>Lost Items</span>
-        </a>
-        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-          <a class="dropdown-item" onclick="">Report</a>
-          <a class="dropdown-item" onclick="recoverLostItems()">Recover</a>
-        </div>
+      <li class="nav-item">
+          <a class="nav-link" onclick="recoverLostItems()"><span>Recover Lost Items</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" onclick="issueItem()">
@@ -97,15 +103,20 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" onclick="returnItems()">
-          <span>return Item</span></a>
+          <span>Borrowed Items</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" onclick="requestedItems()">
+          <span>Requested Items</span></a>
       </li>
  </ul>
      
     <div id="content-wrapper" style="background-color:#e9ecef !important;">
        
         <!-- center working window -->
-      <div class="container d-flex justify-content-center" id="main-window">         
-       </div>
+      <div class="container d-flex justify-content-center" id="main-window">    
+          
+      </div>
       <!-- /.container-fluid -->
     
       <!-- Sticky Footer -->
@@ -128,24 +139,6 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.jsp">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
@@ -161,22 +154,51 @@
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin.min.js"></script>
-      <script src="vendor/axios.min.js"></script>
-   <script src="vendor/sweetalert/sweetalert2.min.js"></script>
+  <script src="vendor/axios.min.js"></script>
+  <script src="vendor/sweetalert/sweetalert2.min.js"></script>
   <script src="vendor/parsley/parsley.min.js"></script>
   <script src="vendor/select2/select2.min.js"></script>
   <script src="vendor/autocomplete/liquidmetal.js"></script>
   <script src="vendor/autocomplete/autocomplete.min.js"></script>
   <script src="js/main.js"></script>
-  <script src="js/navigation.js"></script>
-
   <script>
-      var words = ["omena","food","shoes","chapati","choo"];
-      $(document).ready(function(){   
-        jQuery(document).ready(function() {
-          $("select.flexselect").flexselect();
-        });
-      })  
+      user = "storekeeper"
+    </script>
+  <script src="js/navigation.js"></script>
+   <script>
+     document.getElementById("logBtn").onclick = () => {
+       Swal.fire({
+				text: `Log Out !`,
+				type: 'info',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes'
+			  })
+			  .then(rs =>{
+			      if(rs.value){
+				
+					axios.delete(`/login?userId=${user}`)
+					.then(data=>{
+						//remove all cookies  
+						var cookies = document.cookie.split(";");
+						for (var i = 0; i < cookies.length; i++) {
+							var cookie = cookies[i];
+							var eqPos = cookie.indexOf("=");
+							var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+							document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+						}
+					   //set path
+					   window.location.pathname = "/adminLogin"
+					})
+					.catch(err=>{
+						console.log(err)
+					})
+					
+				  }	   
+			   })
+			}
+  
   </script>
 
 </body>

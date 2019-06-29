@@ -1,6 +1,19 @@
+<%
+  boolean found = false;
+  if(request.getCookies() != null && request.getCookies().length > 3){
+    for(Cookie c  : request.getCookies()){
+      if(c.getName().equals("egersportuserrole")) {
+        if(c.getValue().equals("coordinator")){
+          found = true;
+        }
+      }
+    }
+  }
+
+  if(!found)response.sendRedirect("/adminLogin");
+%>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
   <meta charset="utf-8">
@@ -33,14 +46,11 @@
 
 <body id="page-top">
 
-  <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-
-    <a class="navbar-brand mr-1" href="storekeeper.html"></a>
+    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
     </button>
-
 
     <!-- Navbar -->
     <ul class="navbar-nav ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -50,15 +60,13 @@
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+          <a class="dropdown-item" id="logBtn">Logout</a>
         </div>
       </li>
     </ul>
-
   </nav>
 
   <div id="wrapper">
-
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item active">
@@ -84,9 +92,6 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
             <a class="dropdown-item" onclick="registerField()">Add Field</a>
-            <a class="dropdown-item" onclick="">View Fields</a>
-            <a class="dropdown-item" onclick="">Check Availability</a>
-            <a class="dropdown-item" onclick="">Deallocate</a>
           </div>
         </li>
           <li class="nav-item dropdown">
@@ -94,24 +99,21 @@
             <span>View</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <a class="dropdown-item" onclick="">Students</a>
-            <a class="dropdown-item" onclick="">Teams</a>
-            <a class="dropdown-item" onclick="">Coaches</a>
-            <a class="dropdown-item" onclick="">Sports</a>
-          </div>
-        </li>
-          <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span>Games</span>
-          </a>
-          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <a class="dropdown-item" onclick="">Add Game</a>
-            <a class="dropdown-item" onclick="">View Games</a>
+            <a class="dropdown-item" onclick="viewStudents()">Students</a>
+            <a class="dropdown-item" onclick="viewTeams()">Teams</a>
+            <a class="dropdown-item" onclick="viewCoaches()">Coaches</a>
+            <a class="dropdown-item" onclick="viewSports()">Sports</a>
+            <a class="dropdown-item" onclick="viewFields()">Fields</a>
+            <a class="dropdown-item" onclick="viewgames()">View Games</a>
           </div>
         </li>
         <li class="nav-item">
-        <a class="nav-link" onclick="">
+        <a class="nav-link" onclick="viewItems()">
           <span>View Stock</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" onclick="gameRequests()">
+          <span>Game Requests</span></a>
       </li>
     </ul>
      
@@ -119,7 +121,9 @@
        
         <!-- center working window -->
       <div class="container d-flex justify-content-center" id="main-window">
-    
+          <div class="wrapper">      
+              
+          </div>
       </div>
       <!-- /.container-fluid -->
 
@@ -143,45 +147,65 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.jsp">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Page level plugin JavaScript-->
-  <script src="vendor/chart.js/Chart.min.js"></script>
-  <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-  <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+   <!-- Bootstrap core JavaScript-->
+   <script src="vendor/jquery/jquery.min.js"></script>
+   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+   <!-- Core plugin JavaScript-->
+   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+   <!-- Page level plugin JavaScript-->
+   <script src="vendor/chart.js/Chart.min.js"></script>
+   <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+   <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
    <script src="vendor/sweetalert/sweetalert2.min.js"></script>
-  <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin.min.js"></script>
+   <!-- Custom scripts for all pages-->
+   <script src="js/sb-admin.min.js"></script>
    <script src="vendor/axios.min.js"></script>
    <script src="vendor/parsley/parsley.min.js"></script>
    <script src="vendor/select2/select2.min.js"></script>
+   <script src="vendor/autocomplete/liquidmetal.js"></script>
    <script src="vendor/autocomplete/autocomplete.min.js"></script>
-  <script src="js/main.js"></script>
+   
+   <script src="js/main.js"></script>
+   <script>
+      user = "coordinator"
+   </script>
   <script src="js/navigation.js"></script>
+  <script>
+     document.getElementById("logBtn").onclick = () => {
+       Swal.fire({
+				text: `Log Out !`,
+				type: 'info',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes'
+			  })
+			  .then(rs =>{
+			      if(rs.value){
+				
+					axios.delete(`/login?userId=${user}`)
+					.then(data=>{
+						//remove all cookies  
+						var cookies = document.cookie.split(";");
+						for (var i = 0; i < cookies.length; i++) {
+							var cookie = cookies[i];
+							var eqPos = cookie.indexOf("=");
+							var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+							document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+						}
+					   //set path
+					   window.location.pathname = "/adminLogin"
+					})
+					.catch(err=>{
+						console.log(err)
+					})
+					
+				  }	   
+			   })
+			}
+  
+  </script>
    
 </body>
 

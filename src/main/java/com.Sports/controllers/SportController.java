@@ -97,4 +97,29 @@ public class SportController extends HttpServlet {
         out.flush();
         out.close();
     }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        JSONObject sportJSON = JsonService.getFromRequest(req);
+
+        PrintWriter out = resp.getWriter();
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        JSONObject responseJSon;
+
+        Sport sport = new Sport(sportJSON.getString("name"),sportJSON.getInt("sportId"));
+        boolean saved  = dbService.getSportRepository().save(sport);
+
+        if(saved){
+            responseJSon = new JSONObject("{'status': 'success'}");
+        }else{
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            responseJSon = new JSONObject("{'message':'Error Saving'}");
+        }
+
+
+        out.write(responseJSon.toString());
+        out.flush();
+        out.close();
+    }
 }

@@ -49,4 +49,14 @@ public class Field {
         sportId = sportId;
     }
 
+
+    @Override
+    public String toString() {
+        JSONObject res = new JSONObject();
+        res.put("fieldName",this.fieldName);
+        res.put("fieldId",this.fieldId);
+        res.put("sportId",this.sportId);
+        res.put("sportName",db.getSportRepository().getById(this.sportId).get().getName());
+        return res.toString();
     }
+}

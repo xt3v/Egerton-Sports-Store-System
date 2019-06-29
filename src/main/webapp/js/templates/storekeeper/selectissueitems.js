@@ -65,7 +65,7 @@ function addIssueItem(){
 
   if(!isAvailable(id,amount)){
     return;
-  }else if(itemAmount != undefined && amount != undefined && itemName != ""){
+  }else if(itemAmount != undefined && amount != undefined && itemName != "" && amount != "" && amount != 0){
     var content = `
     <td class="itemN" itemId="${id}">${itemName}</td>
     <td class="itemA">${amount}</td>
@@ -157,7 +157,13 @@ function setupSelectIssueItemsTemplate(){
        setItemSelect(data.data)
    })
    .catch(err=>{
-       console.log(err)
+    Swal.fire({
+        position: 'center',
+        type : 'error',
+        title : `${err.response.message}`,
+        showConfirmButton: false,
+        timer: 1500
+    })
    })
 
    document.querySelector("#issueBtn").disabled = true

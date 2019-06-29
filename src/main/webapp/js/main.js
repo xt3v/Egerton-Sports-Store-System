@@ -7,3 +7,6 @@ let selectedSportId
 //store id and status of borrower during issue of items
 let borrowerId
 let borrowerStatus
+
+
+let user = ""

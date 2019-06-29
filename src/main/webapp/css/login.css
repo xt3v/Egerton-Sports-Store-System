@@ -1,0 +1,41 @@
+
+
+.main-container{
+    background:url("../images/po.jpg") no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .icon-eger img{
+      width:30vw;
+      height: 20vh;
+  }
+
+.typewrite span{
+   color: white;
+   font-size: 2rem;
+   width: 80%;
+   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+   animation-name: colchange;
+   animation-duration: 3s;
+   animation-iteration-count: infinite;
+}
+.parsley-errors-list.filled {
+    width: 100%;
+    text-align: center;
+    font-size: 12pt;
+}
+
+@keyframes colchange{
+    0%{
+      color: white;
+    }
+    50%{
+        color: aqua;
+    }
+    100%{
+        color: black;
+    }
+
+}

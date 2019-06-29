@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Coach {
     private static DatabaseService db = DatabaseService.getInstance();
@@ -27,6 +28,12 @@ public class Coach {
         return borrowedItemList;
     }
 
+    public Team getTeam(){
+        Optional<Team> team =  db.getTeamRepository().getAll().stream().filter(t->t.getCoachId().equals(this.employeeId)).findFirst();
+        if(team.isPresent()) return team.get();
+
+        return  new Team("None","", "","",-1,-1);
+    }
     public void setBorrowedItemList(List<BorrowedItem> borrowedItemList) {
         this.borrowedItemList = borrowedItemList;
     }
@@ -51,5 +58,22 @@ public class Coach {
         boolean isPresent = db.getCoachRepository().getById(coach.getEmployeeId()).isPresent();
 
         return isPresent;
+    }
+
+
+    @Override
+    public String toString() {
+        JSONObject json = new JSONObject();
+        json.put("name",this.name);
+        json.put("employeeId",this.employeeId);
+        Team team = this.getTeam();
+        json.put("teamId",team.getTeamId());
+        json.put("teamName",team.getName());
+        if(team.getTeamId() == -1){
+            json.put("sportName","None");
+        }else{
+            json.put("sportName",db.getSportRepository().getById(team.getSportId()).get().getName());
+        }
+        return json.toString();
     }
 }

@@ -93,7 +93,7 @@ public class TeamRepository implements Repository<Integer, Team> {
 
         if(optionalTeam.isPresent()){
             try{
-                String sql = "UPDATE students SET name = ?,gender = ?, captainRegNo = ? , coachId = ?, sportId = ? WHERE teamId = ?";
+                String sql = "UPDATE teams SET name = ?,gender = ?, captainRegNo = ? , coachId = ?, sportId = ? WHERE teamId = ?";
                 PreparedStatement stmt = db.getConn().prepareStatement(sql);
                 stmt.setString(1,team.getName());
                 stmt.setString(2,team.getGender());
@@ -146,5 +146,18 @@ public class TeamRepository implements Repository<Integer, Team> {
         }
         Optional<Team> optionalTeam = Optional.ofNullable(team);
         return optionalTeam;
+    }
+
+    public ArrayList<Team> getBySportId(int sportId) {
+        try{
+
+            String sql = "SELECT * FROM teams WHERE sportId = ?";
+            PreparedStatement stmt = db.getConn().prepareStatement(sql);
+            stmt.setInt(1,sportId);
+            return queryList(stmt);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return new ArrayList<>();
     }
 }
