@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menuController">
+   <children>
+      <Label layoutX="206.0" layoutY="44.0" prefHeight="32.0" prefWidth="198.0" text="UWEZO SHOP">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <Button fx:id="posBtn" layoutX="145.0" layoutY="118.0" mnemonicParsing="false" onAction="#goToView" prefHeight="52.0" prefWidth="117.0" text="POS" />
+      <Button fx:id="addProdBtn" layoutX="145.0" layoutY="190.0" mnemonicParsing="false" onAction="#goToView" prefHeight="52.0" prefWidth="117.0" text="Add Product" />
+      <Button fx:id="viewDebtorsBtn" layoutX="145.0" layoutY="263.0" mnemonicParsing="false" onAction="#goToView" prefHeight="52.0" prefWidth="117.0" text="View Debtors" />
+      <Button fx:id="addCusBtn" layoutX="306.0" layoutY="118.0" mnemonicParsing="false" onAction="#goToView" prefHeight="52.0" prefWidth="111.0" text="Add Customer" />
+      <Button fx:id="viewSalesBtn" layoutX="306.0" layoutY="190.0" mnemonicParsing="false" onAction="#goToView" prefHeight="52.0" prefWidth="104.0" text="View Sales" />
+      <Button fx:id="stockBtn" layoutX="306.0" layoutY="263.0" mnemonicParsing="false" onAction="#goToView" prefHeight="52.0" prefWidth="104.0" text="Stock" />
+   </children>
+</AnchorPane>
